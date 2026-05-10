@@ -554,18 +554,15 @@
 
 <!-- YOUTUBE BACKGROUND MUSIC -->
 
-<!-- YOUTUBE BACKGROUND MUSIC -->
+<!-- BACKGROUND MUSIC -->
 
-<iframe
-  id="youtubePlayer"
-  width="0"
-  height="0"
-  src="https://www.youtube.com/embed/9VFip4CQT8I?autoplay=0&loop=1&playlist=9VFip4CQT8I&controls=0&mute=0"
-  title="YouTube video player"
-  frameborder="0"
-  allow="autoplay"
-  allowfullscreen>
-</iframe>
+<audio id="bgMusic" loop>
+
+  <source
+    src="https://res.cloudinary.com/djexglfns/video/upload/v1778426042/videoplayback_icsfwq.webm"
+    type="audio/webm">
+
+</audio>
 
   <button class="music-btn" onclick="toggleMusic()">
     🎵
@@ -828,37 +825,39 @@
 
   // OPEN GIFT FUNCTION
 
-  function openGift(){
+function openGift(){
 
-    const screen = document.getElementById("giftScreen");
-    const content = document.getElementById("mainContent");
-    const music = document.getElementById("youtubePlayer");
+  const screen = document.getElementById("giftScreen");
+  const content = document.getElementById("mainContent");
+  const music = document.getElementById("bgMusic");
 
-    // fade out opening screen
-    screen.style.opacity = "0";
-    screen.style.transform = "scale(1.1)";
+  // fade out opening screen
+  screen.style.opacity = "0";
+  screen.style.transform = "scale(1.1)";
+
+  setTimeout(() => {
+
+    screen.style.display = "none";
+
+    // show main content
+    content.style.display = "block";
+
+    // smooth fade in
+    content.style.opacity = "0";
 
     setTimeout(() => {
 
-      screen.style.display = "none";
+      content.style.transition = "opacity 1.2s ease";
+      content.style.opacity = "1";
 
-      // show main content
-      content.style.display = "block";
+    }, 100);
 
-      // smooth fade in
-      content.style.opacity = "0";
+    // PLAY MUSIC
+    music.play();
 
-      setTimeout(() => {
-        content.style.transition = "opacity 1.2s ease";
-        content.style.opacity = "1";
-      }, 100);
+  }, 1000);
 
-document.getElementById("youtubePlayer").src =
-"https://www.youtube.com/embed/9VFip4CQT8I?autoplay=1&loop=1&playlist=9VFip4CQT8I&controls=0&mute=0";
-
-    }, 1000);
-
-  }
+}
 
   // LOVE COUNTER
 
@@ -1027,29 +1026,21 @@ document.getElementById("youtubePlayer").src =
 
   }
 
-  // YOUTUBE MUSIC CONTROL
+// MUSIC CONTROL
 
-let isMuted = false;
+const music = document.getElementById("bgMusic");
 
 function toggleMusic(){
 
-  const iframe = document.getElementById("youtubePlayer");
+  if(music.paused){
 
-  if(isMuted){
-
-    iframe.src =
-    "https://www.youtube.com/embed/9VFip4CQT8I?autoplay=1&loop=1&playlist=9VFip4CQT8I&controls=0&mute=0";
-
-    isMuted = false;
+    music.play();
 
   }
 
   else{
 
-    iframe.src =
-    "https://www.youtube.com/embed/9VFip4CQT8I?autoplay=1&loop=1&playlist=9VFip4CQT8I&controls=0&mute=1";
-
-    isMuted = true;
+    music.pause();
 
   }
 
